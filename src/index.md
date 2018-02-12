@@ -1,0 +1,37 @@
+---
+category: Components
+subtitle: 地图
+type: Data Entry
+title: TileMap
+---
+
+通用地图组件。
+
+## UEDC 编号
+
+（UEDC 暂无）
+
+## 何时使用
+
+* 需要显示或获取空间数据的时候。
+
+## API
+
+```jsx
+<ReactMap appKey="zIT2dNIgEojIIYjD91wIbiespAnwM0Zu" />
+```
+
+### API
+
+以下 API 为 所有地图组件共享的 API。
+
+| 参数                 | 说明                                                                                                 | 类型                         | 默认值              |
+| -------------------- | ---------------------------------------------------------------------------------------------------- | ---------------------------- | ------------------- |
+| setComponentInstance | 设置地图实例                                                                                         | function(mapInstance, NDMap) | -                   |
+| mapOptions           | 地图初始化配置项                                                                                     | Object                       | -                   |
+| platformType         | 地图平台类型：百度（PLATFORM_TYPE.BAIDU），谷歌（PLATFORM_TYPE.GOOGLE），高德（PLATFORM_TYPE.GAODE） | PLATFORM_TYPE                | PLATFORM_TYPE.BAIDU |
+| appKey               | API 授权 Key                                                                                         | string                       | -                   |
+| region               | 区域，仅谷歌地图有效                                                                                 | string                       | 'CN'                |
+| className            | 地图平台容器节点样式类名称                                                                           | string                       | -                   |
+| id                   | 地图平台容器节点 ID                                                                                  | string                       | -                   |
+| style                | 地图平台容器节点样式                                                                                 | Object                       | -                   |
