@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import googleMapLoader from './googleMapLoader'
 import baiduMapLoader from './baiduMapLoader'
+import gaodeMapLoader from './gaodeMapLoader'
 const PlatformType = {
   BAIDU: 'baidu',
   GOOGLE: 'google',
@@ -9,11 +10,10 @@ const PlatformType = {
 export default class ReactMap extends Component {
   static defaultProps = {
     platformType: PlatformType.BAIDU,
-    region: 'CN'
+    bootstrapURLKeys: {}
   }
   static propTypes = {
-    region: PropTypes.string,
-    appKey: PropTypes.string.isRequired,
+    bootstrapURLKeys: PropTypes.object.isRequired,
     id: PropTypes.string,
     className: PropTypes.string,
     style: PropTypes.object,
@@ -44,26 +44,25 @@ export default class ReactMap extends Component {
 
   componentDidMount () {
     this.mounted_ = true
-    let bootstrapURLKeys = { ak: this.props.appKey }
-    let mapLoaderNow = baiduMapLoader
+    let mapLoaderNow = null
     switch (this.props.platformType) {
       case PlatformType.BAIDU: {
-        bootstrapURLKeys = {
-          ak: this.props.appKey
-        }
         mapLoaderNow = baiduMapLoader
         break
       }
       case PlatformType.GOOGLE: {
-        bootstrapURLKeys = {
-          region: this.props.region,
-          key: this.props.appKey
-        }
         mapLoaderNow = googleMapLoader
         break
       }
+      case PlatformType.GAODE: {
+        mapLoaderNow = gaodeMapLoader
+        break
+      }
+      default: {
+        mapLoaderNow = baiduMapLoader
+      }
     }
-    mapLoaderNow(bootstrapURLKeys).then(NDMap => {
+    mapLoaderNow(this.props.bootstrapURLKeys).then(NDMap => {
       if (!this.mounted_) {
         return
       }

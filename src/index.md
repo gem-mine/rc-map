@@ -30,8 +30,7 @@ title: TileMap
 | setComponentInstance | 设置地图实例                                                                                         | function(mapInstance, NDMap) | -                   |
 | mapOptions           | 地图初始化配置项                                                                                     | Object                       | -                   |
 | platformType         | 地图平台类型：百度（PLATFORM_TYPE.BAIDU），谷歌（PLATFORM_TYPE.GOOGLE），高德（PLATFORM_TYPE.GAODE） | PLATFORM_TYPE                | PLATFORM_TYPE.BAIDU |
-| appKey               | API 授权 Key                                                                                         | string                       | -                   |
-| region               | 区域，仅谷歌地图有效                                                                                 | string                       | 'CN'                |
+| bootstrapURLKeys     | 各地图平台 jsSDK 参数，包括授权 Key，百度默认使用 v=3.0，高德 v=1.4.3 ，谷歌默认 region=CN           | Object                       | {}                  |
 | className            | 地图平台容器节点样式类名称                                                                           | string                       | -                   |
 | id                   | 地图平台容器节点 ID                                                                                  | string                       | -                   |
 | style                | 地图平台容器节点样式                                                                                 | Object                       | -                   |

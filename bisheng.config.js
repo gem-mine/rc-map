@@ -11,7 +11,6 @@ module.exports = {
   },
   output: './site',
   theme: '@sdp.nd/bisheng-theme-component',
-  htmlTemplate: "./template.html",
   themeConfig: {
     title: 'nd-react-map',
     github: 'http://git.sdp.nd/component-h5/nd-react-map'
@@ -34,12 +33,8 @@ module.exports = {
         regenerator: true
       }
     ])
-    config.babel.plugins.push(
-      require.resolve('babel-plugin-transform-es3-member-expression-literals')
-    )
-    config.babel.plugins.push(
-      require.resolve('babel-plugin-transform-es3-property-literals')
-    )
+    config.babel.plugins.push(require.resolve('babel-plugin-transform-es3-member-expression-literals'))
+    config.babel.plugins.push(require.resolve('babel-plugin-transform-es3-property-literals'))
     config.babel.plugins.push([
       require.resolve('babel-plugin-import'),
       { libraryName: 'fish', libraryDirectory: 'lib', style: true }

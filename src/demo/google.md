@@ -48,8 +48,8 @@ class App extends React.Component {
     this.setState({ pointData: latLng });
   };
   componentWillUnmount() {
-    if (this.mapInstance) {
-      this.mapInstance.removeListener("click", this.onClickMap);
+    if (this.NDMap && this.mapClickListener) {
+      this.NDMap.event.removeListener(this.mapClickListener);
     }
   }
   render() {
@@ -59,7 +59,7 @@ class App extends React.Component {
           setComponentInstance={(mapInstance, NDMap) => {
             this.mapInstance = mapInstance;
             this.NDMap = NDMap;
-            mapInstance.addListener("click", this.onClickMap);
+            this.mapClickListener = mapInstance.addListener("click", this.onClickMap);
           }}
           mapOptions={{
             center: { lng: 116.404, lat: 39.915 },
@@ -68,9 +68,9 @@ class App extends React.Component {
             maxZoom: 17,
             mapTypeId: "satellite"
           }}
+          bootstrapURLKeys={{ key: "AIzaSyApHj2_Tdn4ryecpuEejrrpnU6IQZFqmx4" }}
           className="react-map-demo"
           style={{ height: 501 }}
-          appKey="AIzaSyApHj2_Tdn4ryecpuEejrrpnU6IQZFqmx4"
           platformType={PlatformType.GOOGLE}
         >
           <MapChildren pointData={this.state.pointData} />

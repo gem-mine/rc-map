@@ -69,17 +69,17 @@ class App extends React.Component {
             // mapInstance.centerAndZoom({ lng: 116.404, lat: 39.915 }, 11);// 这里必须用new Point
             mapInstance.centerAndZoom(new NDMap.Point(116.404, 39.915), 11);
             mapInstance.enableScrollWheelZoom(true);
+            mapInstance.setMapType(window.BMAP_SATELLITE_MAP);
           }}
           mapOptions={{
             minZoom: 1,
             maxZoom: 17,
-            mapType: BMAP_HYBRID_MAP,
             enableAutoResize: true,
             enableMapClick: true
           }}
           className="react-map-demo"
           style={{ height: 501 }}
-          appKey="zIT2dNIgEojIIYjD91wIbiespAnwM0Zu"
+          bootstrapURLKeys={{ ak: "zIT2dNIgEojIIYjD91wIbiespAnwM0Zu" }}
           platformType={PlatformType.BAIDU}
         >
           <MapChildren pointData={this.state.pointData} />

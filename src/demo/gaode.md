@@ -1,5 +1,5 @@
 ---
-order: 3
+order: 2
 title: 高德地图
 ---
 
@@ -15,18 +15,21 @@ class MapChildren extends React.Component {
   marker;
   componentDidMount() {
     const { NDMap, mapInstance } = this.context;
-    const marker = new NDMap.Marker(new NDMap.Point(116.404, 39.915));
-    mapInstance.addOverlay(marker);
-    marker.enableDragging();
+    const marker = new NDMap.Marker({
+      position: [116.404, 39.915],
+      icon: "http://webapi.amap.com/theme/v1.3/markers/n/mark_b.png",
+      map: mapInstance,
+      draggable: true
+    });
+    marker.setMap(mapInstance);
   }
   componentDidUpdate(prevProps) {
     console.log("this.props.pointData:", this.props.pointData);
     const { NDMap, mapInstance } = this.context;
     if (this.props.pointData) {
       if (!this.marker) {
-        this.marker = new NDMap.Marker(this.props.pointData);
-        mapInstance.addOverlay(this.marker);
-        this.marker.enableDragging();
+        this.marker = new NDMap.Marker({ position: this.props.pointData, map: mapInstance, draggable: true });
+        this.marker.setMap(mapInstance);
       } else {
         this.marker.setPosition(this.props.pointData);
       }
@@ -45,17 +48,13 @@ class App extends React.Component {
       pointData: null
     };
   }
-  onClickMap = ({ type, target, point, pixel, overlay }) => {
-    console.log("type:", type);
-    console.log("target:", target);
-    console.log("point:", point);
-    console.log("pixel:", pixel);
-    console.log("overlay:", overlay);
-    this.setState({ pointData: point });
+  onClickMap = ({ lnglat }) => {
+    console.log("lnglat:", lnglat);
+    this.setState({ pointData: lnglat });
   };
   componentWillUnmount() {
-    if (this.mapInstance) {
-      this.mapInstance.removeEventListener("click", this.onClickMap);
+    if (this.NDMap) {
+      this.mapInstance.off("click", this.onClickMap); //移除
     }
   }
   render() {
@@ -65,21 +64,19 @@ class App extends React.Component {
           setComponentInstance={(mapInstance, NDMap) => {
             this.mapInstance = mapInstance;
             this.NDMap = NDMap;
-            mapInstance.addEventListener("click", this.onClickMap);
-            mapInstance.centerAndZoom(new NDMap.Point(116.404, 39.915), 11);
-            mapInstance.enableScrollWheelZoom(true);
+            mapInstance.on("click", this.onClickMap); //绑定
           }}
           mapOptions={{
+            center: [116.404, 39.915],
+            zoom: 11,
             minZoom: 1,
             maxZoom: 17,
-            mapType: BMAP_HYBRID_MAP,
-            enableAutoResize: true,
-            enableMapClick: true
+            mapTypeId: "satellite"
           }}
+          bootstrapURLKeys={{ key: "c39e2850eefe581dfd50e6e44d34615f" }}
           className="react-map-demo"
           style={{ height: 501 }}
-          appKey="zIT2dNIgEojIIYjD91wIbiespAnwM0Zu"
-          platformType={PlatformType.BAIDU}
+          platformType={PlatformType.GAODE}
         >
           <MapChildren pointData={this.state.pointData} />
         </ReactMap>
@@ -87,7 +84,10 @@ class App extends React.Component {
           className="button-demo"
           onClick={() => {
             this.mapInstance.setCenter(
-              new this.NDMap.Point(this.mapInstance.getCenter().lng + 0.005, this.mapInstance.getCenter().lat)
+              new this.NDMap.LngLat(
+                this.mapInstance.getCenter().getLng() + 0.005,
+                this.mapInstance.getCenter().getLat()
+              )
             );
           }}
         >
@@ -95,23 +95,6 @@ class App extends React.Component {
         </button>
         <button className="button-demo" onClick={() => this.mapInstance.setZoom(this.mapInstance.getZoom() - 1)}>
           更新缩放级别
-        </button>
-        <button
-          className="button-demo"
-          onClick={() =>
-            this.mapInstance.setViewport({
-              center: new this.NDMap.Point(this.mapInstance.getCenter().lng + 0.0005, 40.007978),
-              zoom: this.mapInstance.getZoom() - 1
-            })
-          }
-        >
-          更新视角
-        </button>
-        <button className="button-demo" onClick={() => this.mapInstance.setMaxZoom(18)}>
-          更新最大缩放级别
-        </button>
-        <button className="button-demo" onClick={() => this.mapInstance.setMinZoom(3)}>
-          更新最小缩放级别
         </button>
       </div>
     );

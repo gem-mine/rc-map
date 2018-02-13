@@ -1,35 +1,26 @@
-/* eslint-disable no-console */
 let $script_ = null
-
-let loadPromise_
-
-let resolveCustomPromise_
-const _customPromise = new Promise(resolve => {
-  resolveCustomPromise_ = resolve
-})
+let loadPromiseMap = {}
 const getRootVariable = detectionName =>
-  detectionName.split('.').reduce((previousValue, currentValue) => previousValue[currentValue], window)
-const getCallBackFunName = detectionName => `_$_${detectionName}_initialize_$_`
-// TODO add libraries language and other map options
+  detectionName.split('.').reduce((previousValue, currentValue) => previousValue && previousValue[currentValue], window)
+const getCallBackFunName = detectionName => `_$_${detectionName.replace(/\./g, '')}_initialize_$_`
+
 export default function scriptjsLoader (sdkUrl, detectionName, bootstrapURLKeys, callbackName) {
   if (!$script_) {
-    $script_ = require('scriptjs') // eslint-disable-line
+    $script_ = require('scriptjs')
   }
 
   if (!bootstrapURLKeys) {
     bootstrapURLKeys = {}
   }
-  // call from outside google-map-react
-  // will be as soon as loadPromise_ resolved
   if (!sdkUrl || !detectionName) {
-    return _customPromise
+    return Promise.resolve({})
   }
 
-  if (loadPromise_) {
-    return loadPromise_
+  if (loadPromiseMap[sdkUrl]) {
+    return loadPromiseMap[sdkUrl]
   }
 
-  loadPromise_ = new Promise((resolve, reject) => {
+  loadPromiseMap[sdkUrl] = new Promise((resolve, reject) => {
     if (typeof window === 'undefined') {
       reject(new Error('js cannot be loaded outside browser env'))
       return
@@ -45,15 +36,13 @@ export default function scriptjsLoader (sdkUrl, detectionName, bootstrapURLKeys,
       }
 
       window[getCallBackFunName(detectionName)] = () => {
-        delete window[getCallBackFunName(detectionName)]
+        window[getCallBackFunName(detectionName)] = undefined
         resolve(getRootVariable(detectionName))
       }
 
       if (process.env.NODE_ENV !== 'production') {
         if (Object.keys(bootstrapURLKeys).indexOf(callbackName) > -1) {
-          console.error(
-            `"${callbackName}" key in bootstrapURLKeys is not allowed` // eslint-disable-line
-          )
+          console.error(`"${callbackName}" key in bootstrapURLKeys is not allowed`)
           throw new Error(`"${callbackName}" key in bootstrapURLKeys is not allowed`)
         }
       }
@@ -63,7 +52,7 @@ export default function scriptjsLoader (sdkUrl, detectionName, bootstrapURLKeys,
       ''
     )
     if (callbackName) {
-      queryString = `${callbackName}=${getCallBackFunName(detectionName)}`
+      queryString = `${callbackName}=${getCallBackFunName(detectionName)}${queryString}`
     }
     $script_(
       `${sdkUrl}${queryString ? '?' + queryString : ''}`,
@@ -73,7 +62,5 @@ export default function scriptjsLoader (sdkUrl, detectionName, bootstrapURLKeys,
     )
   })
 
-  resolveCustomPromise_(loadPromise_)
-
-  return loadPromise_
+  return loadPromiseMap[sdkUrl]
 }
