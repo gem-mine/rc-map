@@ -1,6 +1,6 @@
-import scriptjsLoader from './scriptjsLoader'
+import scriptjsLoader from '@sdp.nd/js-async-loader'
 export default function googleMapLoader (sdkUrlParams) {
   sdkUrlParams.region = sdkUrlParams.region || 'CN'
   const url = sdkUrlParams.region.toLowerCase() === 'cn' ? '//maps.google.cn' : '//maps.googleapis.com'
-  return scriptjsLoader(url + '/maps/api/js', 'google.maps', sdkUrlParams, 'callback')
+  return scriptjsLoader(url + '/maps/api/js', 'google.maps', sdkUrlParams, 'callback', true)
 }
