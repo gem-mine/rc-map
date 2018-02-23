@@ -68,7 +68,7 @@ class App extends React.Component {
             maxZoom: 17,
             mapTypeId: "satellite"
           }}
-          bootstrapURLKeys={{ key: "AIzaSyApHj2_Tdn4ryecpuEejrrpnU6IQZFqmx4" }}
+          sdkUrlParams={{ key: "AIzaSyApHj2_Tdn4ryecpuEejrrpnU6IQZFqmx4" }}
           className="react-map-demo"
           style={{ height: 501 }}
           platformType={PlatformType.GOOGLE}

@@ -79,7 +79,7 @@ class App extends React.Component {
           }}
           className="react-map-demo"
           style={{ height: 501 }}
-          bootstrapURLKeys={{ ak: "zIT2dNIgEojIIYjD91wIbiespAnwM0Zu" }}
+          sdkUrlParams={{ ak: "zIT2dNIgEojIIYjD91wIbiespAnwM0Zu" }}
           platformType={PlatformType.BAIDU}
         >
           <MapChildren pointData={this.state.pointData} />

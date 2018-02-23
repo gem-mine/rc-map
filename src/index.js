@@ -10,10 +10,10 @@ const PlatformType = {
 export default class ReactMap extends Component {
   static defaultProps = {
     platformType: PlatformType.BAIDU,
-    bootstrapURLKeys: {}
+    sdkUrlParams: {}
   }
   static propTypes = {
-    bootstrapURLKeys: PropTypes.object.isRequired,
+    sdkUrlParams: PropTypes.object.isRequired,
     id: PropTypes.string,
     className: PropTypes.string,
     style: PropTypes.object,
@@ -62,7 +62,7 @@ export default class ReactMap extends Component {
         mapLoaderNow = baiduMapLoader
       }
     }
-    mapLoaderNow(this.props.bootstrapURLKeys).then(NDMap => {
+    mapLoaderNow(this.props.sdkUrlParams).then(NDMap => {
       if (!this.mounted_) {
         return
       }

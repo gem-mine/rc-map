@@ -1,6 +1,6 @@
 import scriptjsLoader from './scriptjsLoader'
-export default function googleMapLoader (bootstrapURLKeys) {
-  bootstrapURLKeys.region = bootstrapURLKeys.region || 'CN'
-  const url = bootstrapURLKeys.region.toLowerCase() === 'cn' ? '//maps.google.cn' : '//maps.googleapis.com'
-  return scriptjsLoader(url + '/maps/api/js', 'google.maps', bootstrapURLKeys, 'callback')
+export default function googleMapLoader (sdkUrlParams) {
+  sdkUrlParams.region = sdkUrlParams.region || 'CN'
+  const url = sdkUrlParams.region.toLowerCase() === 'cn' ? '//maps.google.cn' : '//maps.googleapis.com'
+  return scriptjsLoader(url + '/maps/api/js', 'google.maps', sdkUrlParams, 'callback')
 }
