@@ -8,7 +8,8 @@
     "node": ">=6"
   },
   "scripts": {
-    "lint": "eslint --ext .js,.jsx src || exit 0",
+    "lint": "stylelint \"src/**/*.css\" & stylelint \"src/**/*.scss\" & stylelint \"src/**/*.less\" & eslint --ext .js,.jsx src",
+    "fix": "stylelint --fix \"src/**/*.css\" & stylelint --fix \"src/**/*.scss\" & stylelint --fix \"src/**/*.less\" & eslint --ext .js,.jsx --fix src",
     "babel": "babel ./src --out-dir ./lib",
     "start": "bisheng start",
     "site": "bisheng build",
@@ -18,11 +19,21 @@
   "files": [
     "lib"
   ],
+  "pre-commit": [
+    "lint"
+  ],
   "dependencies": {
     "@sdp.nd/js-async-loader": "^1.0.0",
     "babel-runtime": "^6.22.0"
   },
   "devDependencies": {
+    "pre-commit": "1.x",
+    "@sdp.nd/eslint-config-react": "^2.0.0",
+    "eslint": "^4.14.0",
+    "eslint-loader": "^1.6.3",
+    "eslint-plugin-promise": "^3.5.0",
+    "stylelint": "^8.4.0",
+    "stylelint-config-standard": "^18.0.0",
     "postcss-color-rgba-fallback": "^3.0.0",
     "shx": "^0.2.2",
     "bezier-easing": "^2.0.3",
@@ -49,13 +60,6 @@
     "babel-preset-react": "^6.16.0",
     "babel-preset-stage-0": "^6.16.0",
     "es3ify-loader": "^0.2.0",
-    "eslint": "^3.16.1",
-    "eslint-config-standard": "^7.0.0",
-    "eslint-config-standard-react": "^4.2.0",
-    "eslint-loader": "^1.6.3",
-    "eslint-plugin-promise": "^3.5.0",
-    "eslint-plugin-react": "^6.10.0",
-    "eslint-plugin-standard": "^2.0.1",
     "css-split-webpack-plugin": "^0.2.3",
     "react": "0.14.9",
     "react-dom": "0.14.9",
