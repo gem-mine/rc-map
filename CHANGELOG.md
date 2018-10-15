@@ -1,9 +1,4 @@
----
-order: 5
-title: 更新日志
-toc: false
-timeline: true
----
+# 更新日志
 
 #### 发布周期
 
@@ -12,6 +7,13 @@ timeline: true
 * 主版本号：含有破坏性更新和新特性，不在发布周期内。
 
 ---
+
+## 2.0.0
+
+`2018-10-15`
+
+* 升级依赖@sdp.nd/js-async-loader
+* 构建使用md-tools代替bisheng
 
 ## 1.0.0
 
