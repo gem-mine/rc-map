@@ -47,7 +47,7 @@ npm run site
 百度地图初始化基础操作
 
 ```jsx
-import ReactMap, { PlatformType } from "@sdp.nd/nd-react-map";
+import ReactMap, { PlatformType } from "@gem-mine/rc-map";
 class MapChildren extends React.Component {
   static contextTypes = {
     mapInstance: React.PropTypes.object,
@@ -167,7 +167,7 @@ ReactDOM.render(<App />, mountNode);
 > ie8 不兼容；ie9 会有兼容性提示；全球版不翻墙无法使用。
 
 ```jsx
-import ReactMap, { PlatformType } from "@sdp.nd/nd-react-map";
+import ReactMap, { PlatformType } from "@gem-mine/rc-map";
 class MapChildren extends React.Component {
   static contextTypes = {
     mapInstance: React.PropTypes.object,
@@ -260,7 +260,7 @@ ReactDOM.render(<App />, mountNode);
 地图初始化基础操作
 
 ```jsx
-import ReactMap, { PlatformType } from "@sdp.nd/nd-react-map";
+import ReactMap, { PlatformType } from "@gem-mine/rc-map";
 class MapChildren extends React.Component {
   static contextTypes = {
     mapInstance: React.PropTypes.object,
