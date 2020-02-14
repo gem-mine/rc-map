@@ -21,7 +21,8 @@ export default class ReactMap extends Component {
     platformType: PropTypes.oneOf(Object.values(PlatformType)),
     mapOptions: PropTypes.object,
     setComponentInstance: PropTypes.func,
-    children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node])
+    children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]),
+    supportTip: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node])
   }
   static childContextTypes = {
     mapInstance: PropTypes.object,
@@ -78,9 +79,12 @@ export default class ReactMap extends Component {
   render () {
     const map = this.componentInstance
     const children = map ? this.props.children : null
+    // supportTip 放入children 百度、谷歌地图不能显示
+    const supportTip = map ? null : this.props.supportTip
     return (
       <div className={this.props.className} id={this.props.id} ref={this.bindContainer} style={this.props.style}>
         {children}
+        {supportTip}
       </div>
     )
   }

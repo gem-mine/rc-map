@@ -231,6 +231,7 @@ class App extends React.Component {
           className="react-map-demo"
           style={{ height: 501 }}
           platformType={PlatformType.GOOGLE}
+          supportTip="谷歌地图因网络问题暂时无法提供服务"
         >
           <MapChildren pointData={this.state.pointData} />
         </ReactMap>
