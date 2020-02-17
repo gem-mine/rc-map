@@ -36,7 +36,7 @@ export default class ReactMap extends Component {
   }
   static PlatformType = PlatformType
   state = {
-    supportTip: ''
+    supportTip: null
   }
   componentInstance
   NDMap
@@ -78,9 +78,11 @@ export default class ReactMap extends Component {
       }
       this.forceUpdate() // Re-render now that componentInstance is created
     }).catch(err => {
-      this.setState({
-        supportTip: this.props.supportTip || null
-      })
+      if (this.props.supportTip) {
+        this.setState({
+          supportTip: this.props.supportTip
+        })
+      }
 
       throw err
     })
