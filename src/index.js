@@ -35,6 +35,9 @@ export default class ReactMap extends Component {
     }
   }
   static PlatformType = PlatformType
+  state = {
+    supportTip: ''
+  }
   componentInstance
   NDMap
   bindContainer = container => {
@@ -74,17 +77,23 @@ export default class ReactMap extends Component {
         this.props.setComponentInstance(this.componentInstance, NDMap)
       }
       this.forceUpdate() // Re-render now that componentInstance is created
+    }).catch(err => {
+      this.setState({
+        supportTip: this.props.supportTip || null
+      })
+
+      throw err
     })
   }
   render () {
     const map = this.componentInstance
     const children = map ? this.props.children : null
-    // supportTip 放入children 百度、谷歌地图不能显示
-    const supportTip = map ? null : this.props.supportTip
+    // supportTip 直接放入children 谷歌地图白屏不能显示，使用state
+    // const supportTip = map ? null : this.props.supportTip
     return (
       <div className={this.props.className} id={this.props.id} ref={this.bindContainer} style={this.props.style}>
         {children}
-        {supportTip}
+        {this.state.supportTip}
       </div>
     )
   }
