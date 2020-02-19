@@ -10,12 +10,14 @@ const PlatformType = {
 }
 export default class ReactMap extends Component {
   static defaultProps = {
+    prefixCls: 'rc-map',
     platformType: PlatformType.BAIDU,
     sdkUrlParams: {}
   }
   static propTypes = {
     sdkUrlParams: PropTypes.object.isRequired,
     id: PropTypes.string,
+    prefixCls: PropTypes.string,
     className: PropTypes.string,
     style: PropTypes.object,
     platformType: PropTypes.oneOf(Object.values(PlatformType)),
@@ -93,9 +95,9 @@ export default class ReactMap extends Component {
     // supportTip 直接放入children 谷歌地图白屏不能显示，使用state
     // const supportTip = map ? null : this.props.supportTip
     return (
-      <div className={this.props.className} id={this.props.id} ref={this.bindContainer} style={this.props.style}>
+      <div className={`${this.props.prefixCls} ${this.props.className}`} id={this.props.id} ref={this.bindContainer} style={this.props.style}>
         {children}
-        <div className={`${this.props.className}-support-tip`}>{this.state.supportTip}</div>
+        <div className={`${this.props.prefixCls}-support-tip`}>{this.state.supportTip}</div>
       </div>
     )
   }
