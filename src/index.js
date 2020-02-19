@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import classnames from 'classnames'
 import googleMapLoader from './googleMapLoader'
 import baiduMapLoader from './baiduMapLoader'
 import gaodeMapLoader from './gaodeMapLoader'
@@ -95,9 +96,14 @@ export default class ReactMap extends Component {
     // supportTip 直接放入children 谷歌地图白屏不能显示，使用state
     // const supportTip = map ? null : this.props.supportTip
     return (
-      <div className={`${this.props.prefixCls} ${this.props.className}`} id={this.props.id} ref={this.bindContainer} style={this.props.style}>
+      <div className={classnames(this.props.prefixCls, this.props.className)} id={this.props.id} ref={this.bindContainer} style={this.props.style}>
         {children}
-        <div className={`${this.props.prefixCls}-support-tip`}>{this.state.supportTip}</div>
+        <div className={classnames({
+          [`${this.props.prefixCls}-support-tip`]: this.props.prefixCls
+        })}
+        >
+          {this.state.supportTip}
+        </div>
       </div>
     )
   }
