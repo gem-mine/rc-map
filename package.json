@@ -7,7 +7,7 @@
   "engines": {
     "node": ">=6"
   },
-  "homepage": "http://git.sdp.nd/component-h5/rc-map",
+  "homepage": "https://github.com/gem-mine/rc-map",
   "scripts": {
     "lint": "eslint --ext .js,.jsx src",
     "fix": "eslint --ext .js,.jsx --fix src",
