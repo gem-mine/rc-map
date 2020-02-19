@@ -95,7 +95,7 @@ export default class ReactMap extends Component {
     return (
       <div className={this.props.className} id={this.props.id} ref={this.bindContainer} style={this.props.style}>
         {children}
-        {this.state.supportTip}
+        <div className={`${this.props.className}-support-tip`}>{this.state.supportTip}</div>
       </div>
     )
   }
