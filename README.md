@@ -231,6 +231,7 @@ class App extends React.Component {
           className="react-map-demo"
           style={{ height: 501 }}
           platformType={PlatformType.GOOGLE}
+          supportTip="谷歌地图因网络问题暂时无法提供服务"
         >
           <MapChildren pointData={this.state.pointData} />
         </ReactMap>
@@ -368,3 +369,5 @@ ReactDOM.render(<App />, mountNode);
 | className            | 地图平台容器节点样式类名称                                                                                                                                                                                                                                                        | string                       | -                  |
 | id                   | 地图平台容器节点 ID                                                                                                                                                                                                                                                               | string                       | -                  |
 | style                | 地图平台容器节点样式                                                                                                                                                                                                                                                              | Object                       | -                  |
+| supportTip           | 当地图脚本无法加载时的提示                                                                                                                                                                                                                                                        | ReactNode                    | null               |
+| prefixCls           | 设置统一样式前缀                                                                                                                                                                                                                                                   | string                    | 'rc-map'               |

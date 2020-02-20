@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import classnames from 'classnames'
 import googleMapLoader from './googleMapLoader'
 import baiduMapLoader from './baiduMapLoader'
 import gaodeMapLoader from './gaodeMapLoader'
@@ -10,18 +11,21 @@ const PlatformType = {
 }
 export default class ReactMap extends Component {
   static defaultProps = {
+    prefixCls: 'rc-map',
     platformType: PlatformType.BAIDU,
     sdkUrlParams: {}
   }
   static propTypes = {
     sdkUrlParams: PropTypes.object.isRequired,
     id: PropTypes.string,
+    prefixCls: PropTypes.string,
     className: PropTypes.string,
     style: PropTypes.object,
     platformType: PropTypes.oneOf(Object.values(PlatformType)),
     mapOptions: PropTypes.object,
     setComponentInstance: PropTypes.func,
-    children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node])
+    children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]),
+    supportTip: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node])
   }
   static childContextTypes = {
     mapInstance: PropTypes.object,
@@ -34,6 +38,9 @@ export default class ReactMap extends Component {
     }
   }
   static PlatformType = PlatformType
+  state = {
+    supportTip: null
+  }
   componentInstance
   NDMap
   bindContainer = container => {
@@ -73,14 +80,30 @@ export default class ReactMap extends Component {
         this.props.setComponentInstance(this.componentInstance, NDMap)
       }
       this.forceUpdate() // Re-render now that componentInstance is created
+    }).catch(err => {
+      if (this.props.supportTip) {
+        this.setState({
+          supportTip: this.props.supportTip
+        })
+      }
+
+      throw err
     })
   }
   render () {
     const map = this.componentInstance
     const children = map ? this.props.children : null
+    // supportTip 直接放入children 谷歌地图白屏不能显示，使用state
+    // const supportTip = map ? null : this.props.supportTip
     return (
-      <div className={this.props.className} id={this.props.id} ref={this.bindContainer} style={this.props.style}>
+      <div className={classnames(this.props.prefixCls, this.props.className)} id={this.props.id} ref={this.bindContainer} style={this.props.style}>
         {children}
+        <div className={classnames({
+          [`${this.props.prefixCls}-support-tip`]: this.props.prefixCls
+        })}
+        >
+          {this.state.supportTip}
+        </div>
       </div>
     )
   }

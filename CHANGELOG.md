@@ -7,6 +7,13 @@
 * 主版本号：含有破坏性更新和新特性，不在发布周期内。
 
 ---
+## 2.0.3
+
+`2020-02-20`
+
+* 增加supportTip参数
+* region 参数为 cn 时 `//maps.google.cn` api地址失效，统一改为 `//maps.googleapis.com/maps/api/js`
+
 ## 2.0.2
 
 `2019-09-28`
