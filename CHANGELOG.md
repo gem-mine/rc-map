@@ -12,6 +12,7 @@
 `2020-02-20`
 
 * 增加supportTip参数
+* region 参数为 cn 时 `//maps.google.cn` api地址失效，统一改为 `//maps.googleapis.com/maps/api/js`
 
 ## 2.0.2
 
