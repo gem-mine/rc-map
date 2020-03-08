@@ -15,7 +15,7 @@
 ## 安装
 
 ```bash
-npm install @sdp.nd/nd-react-map --save
+npm install @gem-mine/rc-map --save
 ```
 
 ## 运行
