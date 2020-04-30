@@ -50,6 +50,10 @@ export default class ReactMap extends Component {
     return new NDMap.Map(this.container, mapOptions)
   }
 
+  componentWillUnmount () {
+    this.mounted_ = false
+  }
+
   componentDidMount () {
     this.mounted_ = true
     let mapLoaderNow = null
@@ -81,7 +85,7 @@ export default class ReactMap extends Component {
       }
       this.forceUpdate() // Re-render now that componentInstance is created
     }).catch(err => {
-      if (this.props.supportTip) {
+      if (this.props.supportTip && this.mounted_) {
         this.setState({
           supportTip: this.props.supportTip
         })
