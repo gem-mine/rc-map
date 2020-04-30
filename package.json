@@ -1,6 +1,6 @@
 {
   "name": "@gem-mine/rc-map",
-  "version": "2.0.4",
+  "version": "2.1.0",
   "description": "地图组件",
   "license": "MIT",
   "main": "lib/index.js",
